@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Define the File Storage class"""
+"""A Define the File Storage class"""
 
 import json
 import os
