@@ -45,7 +45,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """Save new object as a dict"""
+        """A Save new object as a dict"""
         rdict = self.__dict__.copy()
         rdict["created_at"] = datetime.isoformat(datetime.now())
         rdict["updated_at"] = datetime.isoformat(datetime.now())
