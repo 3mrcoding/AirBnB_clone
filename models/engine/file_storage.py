@@ -7,7 +7,7 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
-    """class to handle all the storage related process"""
+    """A class to handle all the storage related process"""
 
     __file_path = "file.json"
     __objects = {}
