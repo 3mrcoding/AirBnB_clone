@@ -13,8 +13,14 @@ class HBNBCommand(cmd.Cmd):
         "Quit command to exit the program"
         return True
 
-    # alliasing
-    do_EOF = do_quit
+    def emptyline(self):
+        """Do nothing upon receiving an empty line."""
+        pass
+
+    def do_EOF(self, arg):
+        """EOF signal to exit the program."""
+        print("")
+        return True
 
 
 if __name__ == "__main__":
