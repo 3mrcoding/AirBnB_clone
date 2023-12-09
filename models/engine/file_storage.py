@@ -13,7 +13,7 @@ class FileStorage:
     __objects = {}
 
     def all(self):
-        """return all the created objects"""
+        """Return all the created objects"""
         return self.__objects
 
     # def new(self, obj):
