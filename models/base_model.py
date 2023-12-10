@@ -3,7 +3,7 @@
 
 import uuid
 import models
-from datetime import datetime
+import datetime
 
 
 class BaseModel:
@@ -16,23 +16,24 @@ class BaseModel:
         **kwargs (dict): Key/value pairs of attributes.
         """
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-
         if len(kwargs) > 0:
             for i, j in kwargs.items():
                 if i == "__class__":
                     continue
                 elif i == "created_at":
-                    self.created_at = datetime.strptime
-                    (j, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.created_at = datetime.datetime.strptime(
+                        j, "%Y-%m-%dT%H:%M:%S.%f"
+                    )
                 elif i == "updated_at":
-                    self.updated_at = datetime.strptime
-                    (j, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.updated_at = datetime.datetime.strptime(
+                        j, "%Y-%m-%dT%H:%M:%S.%f"
+                    )
                 else:
                     setattr(self, i, j)
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
             models.storage.new(self)
 
     def __str__(self):
@@ -41,13 +42,13 @@ class BaseModel:
 
     def save(self):
         """A Save new object"""
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """A Save new object as a dict"""
         rdict = self.__dict__.copy()
-        rdict["created_at"] = datetime.isoformat(datetime.now())
-        rdict["updated_at"] = datetime.isoformat(datetime.now())
+        rdict["created_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
         rdict["__class__"] = self.__class__.__name__
         return rdict
