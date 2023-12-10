@@ -6,13 +6,27 @@ from models.base_model import BaseModel
 from models import storage
 import datetime
 import re
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """CMD CONSOLE CLASS"""
 
     prompt = "(hbnb) "
-    clas = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+    clas = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review,
+    }
 
     def do_quit(self, arg):
         "Quit command to exit the program"
@@ -31,10 +45,10 @@ class HBNBCommand(cmd.Cmd):
         """Method creates a new object of any added Class"""
         if len(arg) <= 0:
             print("** class name missing **")
-        elif arg not in self.clas:
+        elif arg not in self.clas.keys():
             print(" ** class doesn't exist **")
         else:
-            x = BaseModel()
+            x = self.clas[arg]()
             x.save()
             print(f"{x.id}")
 
@@ -43,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
         parts = arg.split()
         if len(parts) < 1:
             print("** class name missing **")
-        elif parts[0] not in self.clas:
+        elif parts[0] not in self.clas.keys():
             print("** class doesn't exist **")
         elif len(parts) < 2:
             print("** instance id missing **")
@@ -64,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
         parts = arg.split()
         if len(parts) < 1:
             print("** class name missing **")
-        elif parts[0] not in self.clas:
+        elif parts[0] not in self.clas.keys():
             print("** class doesn't exist **")
         elif len(parts) < 2:
             print("** instance id missing **")
@@ -90,10 +104,10 @@ class HBNBCommand(cmd.Cmd):
                 list.append(f"{obj_val}")
             print(list)
 
-        elif len(parts) == 1 and parts[0] not in self.clas:
+        elif len(parts) == 1 and parts[0] not in self.clas.keys():
             print("** class doesn't exist **")
 
-        elif len(parts) == 1 and parts[0] in self.clas:
+        elif len(parts) == 1 and parts[0] in self.clas.keys():
             for obj_keys, obj_val in all_objs.items():
                 parts2 = obj_keys.split(".")
                 if parts2[0] == parts[0]:
@@ -105,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         parts = arg.split()
         if len(parts) < 1:
             print("** class name missing **")
-        elif parts[0] not in self.clas:
+        elif parts[0] not in self.clas.keys():
             print("** class doesn't exist **")
         elif len(parts) < 2:
             print("** instance id missing **")
