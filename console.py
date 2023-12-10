@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
     """CMD CONSOLE CLASS"""
 
     prompt = "(hbnb) "
-    clases = ["BaseModel"]
+    clases = ["BaseModel", "User"]
 
     def do_quit(self, arg):
         "Quit command to exit the program"
