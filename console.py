@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) <= 0:
             print("** class name missing **")
         elif arg not in self.clas.keys():
-            print(" ** class doesn't exist **")
+            print("** class doesn't exist **")
         else:
             x = self.clas[arg]()
             x.save()
